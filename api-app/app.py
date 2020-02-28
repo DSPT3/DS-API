@@ -13,6 +13,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(app)
 
+    conn = sqlite3.connect('spotify_tracks.sqlite3')
+
     @app.route("/")
     def root():
         return render_template('base.html', title='Home')
