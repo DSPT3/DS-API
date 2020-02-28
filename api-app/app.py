@@ -1,12 +1,19 @@
 """  Main application for Spotify Flask App """
+from dotenv import load_dotenv
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from os import getenv
 
-from flask import Flask
+DB = SQLAlchemy()
 
 # Make app factory
 def create_app():
     app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotify_tracks.sqlite3'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    DB.init_app(app)
 
     @app.route("/")
     def root():
-        return "Welcome to Build Week Spotify Team!!!"
+        return render_template('base.html', title='Home')
     return app
